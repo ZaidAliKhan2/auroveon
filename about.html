@@ -1,0 +1,1299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/favicon_32x32.png">
+    <title>About Us | Auroveon — AI-Native Software Agency</title>
+    <meta
+      name="description"
+      content="We are Auroveon — a team of builders, designers, and AI engineers crafting premium digital products for ambitious brands."
+    />
+    <meta name="theme-color" content="#080A08" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" src="components/navbar.js"></script>
+    <script type="text/babel" src="components/footer.js"></script>
+    <script type="text/babel" src="components/whatsapp-fab.js"></script>
+    <style>
+      :root {
+        --bg-base: #080a08;
+        --bg-2: #0c0f0c;
+        --bg-3: #111411;
+        --bg-4: #161a16;
+        --accent: #39ff14;
+        --accent-dim: #2bc410;
+        --accent-glow: rgba(57, 255, 20, 0.16);
+        --accent-glow-strong: rgba(57, 255, 20, 0.36);
+        --text-primary: #f0f5f0;
+        --text-secondary: #7a8a7a;
+        --text-muted: #4a574a;
+        --border: rgba(57, 255, 20, 0.1);
+        --border-strong: rgba(57, 255, 20, 0.24);
+        --glass: rgba(12, 15, 12, 0.58);
+        --glass-2: rgba(17, 20, 17, 0.82);
+      }
+            /* Text Selection */
+::selection {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+::-moz-selection {
+  background: var(--accent);
+  color: var(--bg-base);
+}
+
+/* Webkit Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d110d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    var(--accent),
+    var(--accent-dim)
+  );
+  border-radius: 999px;
+  border: 2px solid #0d110d;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        background:
+          radial-gradient(circle at top, rgba(57, 255, 20, 0.09), transparent 28%),
+          linear-gradient(180deg, #080a08 0%, #090c09 48%, #070907 100%);
+        color: var(--text-primary);
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      @media (min-width: 1024px) { body { cursor: none; } }
+
+      .display-font { font-family: "Poppins", sans-serif; }
+      .mono-font { font-family: "JetBrains Mono", monospace; }
+
+      .brand-logo { display: block; width: auto; height: 100%; object-fit: contain; }
+      .brand-logo-link { display: inline-flex; align-items: center; flex-shrink: 0; }
+      .brand-logo-nav { height: 68px; }
+      .brand-logo-footer { height: 72px; max-width: min(100%, 240px); }
+      .brand-logo-inline { height: 26px; }
+
+      .site-shell {
+        width: min(1380px, calc(100% - 1.5rem));
+        margin: 0 auto;
+      }
+      @media (min-width: 1024px) {
+        .site-shell { width: min(1380px, calc(100% - 4rem)); }
+      }
+
+      .noise-overlay {
+        position: fixed; inset: 0; pointer-events: none; z-index: 5;
+        opacity: 0.034;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 240px 240px;
+      }
+
+      .cursor-dot, .cursor-ring {
+        position: fixed; top: 0; left: 0;
+        transform: translate(-50%, -50%);
+        pointer-events: none; z-index: 90; opacity: 0;
+      }
+      .cursor-dot {
+        width: 10px; height: 10px; border-radius: 9999px;
+        background: var(--accent);
+        box-shadow: 0 0 22px rgba(57, 255, 20, 0.65);
+        mix-blend-mode: screen;
+      }
+      .cursor-ring {
+        width: 54px; height: 54px; border-radius: 9999px;
+        border: 1px solid rgba(57, 255, 20, 0.22);
+        background: radial-gradient(circle, rgba(57, 255, 20, 0.12), transparent 72%);
+        transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
+      }
+      .cursor-ring.is-hovering { width: 76px; height: 76px; border-color: rgba(57, 255, 20, 0.48); }
+      @media (max-width: 1023px) { .cursor-dot, .cursor-ring { display: none; } }
+
+      .glass-panel {
+        background: linear-gradient(180deg, rgba(18, 23, 18, 0.8), rgba(10, 12, 10, 0.58));
+        border: 1px solid var(--border);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        box-shadow: 0 18px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+      }
+
+      .soft-divider {
+        background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.45), transparent);
+      }
+
+      .eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        color: var(--accent); font-size: 0.72rem;
+        letter-spacing: 0.18em; text-transform: uppercase;
+      }
+
+      .section-kicker {
+        font-family: "Poppins", sans-serif; font-size: 0.74rem;
+        font-weight: 700; letter-spacing: 0.18em;
+        text-transform: uppercase; color: var(--text-secondary);
+      }
+
+      .nav-scrolled {
+        background: rgba(8, 10, 8, 0.86);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+      }
+
+      .nav-link, .footer-link { color: var(--text-secondary); transition: color 0.24s ease; }
+      .nav-link:hover, .footer-link:hover { color: var(--text-primary); }
+      .nav-link.active { color: var(--accent); }
+
+      /* Services Dropdown */
+      .nav-dropdown-wrap { position: relative; }
+      .nav-dropdown-wrap:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+      .nav-dropdown {
+        position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-8px);
+        min-width: 200px; background: rgba(10,13,10,0.98);
+        border: 1px solid var(--border); border-radius: 20px;
+        padding: 10px; opacity: 0; visibility: hidden;
+        transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+        backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(57,255,20,0.06);
+        z-index: 100;
+      }
+      .nav-dropdown a {
+        display: block; padding: 9px 14px; border-radius: 12px;
+        color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;
+        transition: color 0.2s ease, background 0.2s ease;
+        text-decoration: none;
+      }
+      .nav-dropdown a:hover { color: var(--accent); background: rgba(57,255,20,0.06); }
+      .nav-dropdown-btn {
+        display: flex; align-items: center; gap: 5px;
+        color: var(--text-secondary); transition: color 0.24s ease;
+        font-size: 1rem; font-weight: 500; background: none; border: none; cursor: pointer;
+        font-family: inherit; padding: 0;
+      }
+      .nav-dropdown-wrap:hover .nav-dropdown-btn { color: var(--text-primary); }
+      .nav-dropdown-btn svg { transition: transform 0.22s ease; flex-shrink: 0; }
+      .nav-dropdown-wrap:hover .nav-dropdown-btn svg { transform: rotate(180deg); }
+      /* Mobile dropdown */
+      .mob-dropdown { display: none; flex-direction: column; gap: 4px; padding: 8px 0; }
+      .mob-dropdown.open { display: flex; }
+      .mob-dropdown a { display: block; padding: 10px 18px; border-radius: 12px; color: var(--text-secondary); font-size: 1rem; font-weight: 500; transition: color 0.2s ease, background 0.2s ease; text-decoration: none; }
+      .mob-dropdown a:hover { color: var(--accent); background: rgba(57,255,20,0.06); }
+
+      .mini-label {
+        color: var(--text-muted); font-size: 0.76rem;
+        text-transform: uppercase; letter-spacing: 0.16em;
+      }
+
+      .section-frame { position: relative; }
+      .section-frame::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -1px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.08), transparent);
+      }
+
+      /* Hero spotlight */
+      .hero-spotlight {
+        position: absolute; border-radius: 9999px;
+        filter: blur(130px); pointer-events: none;
+      }
+
+      /* Value card hover */
+      .value-card, .team-card, .stat-card, .milestone-card {
+        position: relative; overflow: hidden;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      }
+      .value-card::before, .team-card::before, .stat-card::before, .milestone-card::before {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 24%),
+                    radial-gradient(circle at top right, rgba(57,255,20,0.08), transparent 24%);
+        pointer-events: none;
+      }
+      .value-card:hover, .team-card:hover, .stat-card:hover, .milestone-card:hover {
+        border-color: var(--border-strong) !important;
+        box-shadow: 0 24px 70px rgba(0,0,0,0.38), 0 0 45px rgba(57,255,20,0.1);
+        transform: translateY(-8px);
+      }
+
+      /* Shine text */
+      @keyframes text-shine {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      .shine-text {
+        background: linear-gradient(90deg, #ffffff 0%, #ffffff 35%, #b9ffb0 44%, #eaffea 50%, #b9ffb0 56%, #ffffff 65%, #ffffff 100%);
+        background-size: 200% auto; display: inline-block; overflow: visible;
+        padding-right: 0.14em;
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        animation: text-shine 4s linear infinite;
+      }
+      .shine-text-accent {
+        background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 35%, #ccffcc 44%, #efffef 50%, #ccffcc 56%, var(--accent) 65%, var(--accent) 100%);
+        background-size: 200% auto; display: inline-block; overflow: visible;
+        padding-right: 0.14em;
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent; color: transparent;
+        animation: text-shine 4s linear infinite;
+      }
+
+      .headline-italics {
+        font-family: "Poppins", sans-serif; font-style: italic;
+        font-weight: 800; letter-spacing: -0.045em; line-height: 1; overflow: visible;
+      }
+
+      /* Reveal animation */
+      @keyframes revealUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .reveal { opacity: 0; animation: revealUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+      .reveal-d1 { animation-delay: 0.1s; }
+      .reveal-d2 { animation-delay: 0.2s; }
+      .reveal-d3 { animation-delay: 0.3s; }
+      .reveal-d4 { animation-delay: 0.4s; }
+      .reveal-d5 { animation-delay: 0.5s; }
+
+      /* Hero bg */
+      .about-hero-bg {
+        position: absolute; inset: 0;
+        background: linear-gradient(100deg, rgba(8,10,8,0.96) 16%, rgba(8,10,8,0.76) 52%, rgba(8,10,8,0.92) 100%),
+                    radial-gradient(circle at 72% 28%, rgba(57,255,20,0.16), transparent 26%),
+                    url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
+        filter: saturate(0.5) contrast(1.08) brightness(0.38);
+      }
+
+      .hero-grid {
+        position: absolute; inset: 0;
+        background-image: linear-gradient(rgba(57,255,20,0.035) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(57,255,20,0.035) 1px, transparent 1px);
+        background-size: 74px 74px;
+        mask-image: radial-gradient(circle at 60% 40%, black 0%, black 42%, transparent 88%);
+        -webkit-mask-image: radial-gradient(circle at 60% 40%, black 0%, black 42%, transparent 88%);
+      }
+
+      /* Orbit wrapper */
+      .about-orbit {
+        pointer-events: none;
+        z-index: 10;
+      }
+      @media (max-width: 1280px) {
+        .about-orbit {
+          width: 340px !important;
+          height: 340px !important;
+          right: -1rem !important;
+        }
+        .orbit-logo { width: 70px; height: 70px; }
+        .orbit-pill { padding: 6px 10px; }
+        .orbit-pill-value { font-size: 0.72rem; }
+      }
+
+      /* Static rings */
+      .orbit-ring {
+        transform-origin: 240px 240px;
+        filter: drop-shadow(0 0 8px rgba(57,255,20,0.22));
+      }
+      .ring-1 { animation: ring-spin 18s linear infinite; }
+      .ring-2 { animation: ring-spin 13s linear infinite reverse; }
+      .ring-3 { animation: ring-spin 9s linear infinite; }
+
+      @keyframes ring-spin {
+        from { transform: rotateX(68deg) rotateZ(0deg); }
+        to { transform: rotateX(68deg) rotateZ(360deg); }
+      }
+
+      /* Orbiting dots */
+      .orbit-dot-wrap {
+        position: absolute;
+        border-radius: 50%;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+      }
+      .ring-1-anim { animation: dot-orbit 18s linear infinite; }
+      .ring-2-anim { animation: dot-orbit 13s linear infinite reverse; }
+      .ring-3-anim { animation: dot-orbit 9s linear infinite; }
+
+      @keyframes dot-orbit {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .orbit-dot {
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #39ff14;
+        box-shadow: 0 0 8px rgba(57,255,20,0.9), 0 0 18px rgba(57,255,20,0.5);
+        transform: translateX(-50%);
+      }
+
+      /* Stat pills */
+      .orbit-pill {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 8px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(57,255,20,0.15);
+        background: rgba(12,15,12,0.75);
+        backdrop-filter: blur(10px);
+        animation: pill-float 5s ease-in-out infinite;
+        pointer-events: none;
+      }
+      .orbit-pill:nth-child(odd) { animation-delay: 0s; }
+      .orbit-pill:nth-child(even) { animation-delay: 2.5s; }
+
+      @keyframes pill-float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-7px); }
+      }
+
+      .orbit-pill-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.62rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--accent);
+      }
+      .orbit-pill-value {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Center logo */
+      .orbit-logo-wrap {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .orbit-logo {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 18px rgba(57,255,20,0.5));
+        animation: logo-breathe 4s ease-in-out infinite;
+      }
+      .orbit-logo-glow {
+        position: absolute;
+        inset: -20px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(57,255,20,0.12) 0%, transparent 70%);
+        animation: logo-breathe 4s ease-in-out infinite;
+      }
+
+      @keyframes logo-breathe {
+        0%, 100% {
+          filter: drop-shadow(0 0 14px rgba(57,255,20,0.4));
+          transform: scale(1);
+        }
+        50% {
+          filter: drop-shadow(0 0 28px rgba(57,255,20,0.75));
+          transform: scale(1.04);
+        }
+      }
+      /* Marquee */
+      .marquee { overflow: hidden; position: relative; }
+      .marquee-track {
+        display: flex; width: max-content;
+        animation: marquee-left 28s linear infinite;
+      }
+      @keyframes marquee-left {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+      }
+
+      /* Timeline */
+      .timeline-line-track {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(57, 255, 20, 0.08);
+        transform: translateX(-50%);
+      }
+
+      #timeline-progress {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 2px;
+        height: 0%;
+        background: linear-gradient(to bottom, var(--accent), rgba(57,255,20,0.3));
+        transform: translateX(-50%);
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+        transition: height 0.1s linear;
+        z-index: 1;
+      }
+
+      .milestone-card {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease,
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .milestone-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .milestone-card.is-visible:hover {
+        transform: translateY(-8px);
+      }
+
+      .skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: rgba(57, 255, 20, 0.05);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-family: var(--mono-font, monospace);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.skill-tag:hover {
+  background: rgba(57, 255, 20, 0.1);
+  color: var(--accent);
+}
+
+      .timeline-dot {
+        position: absolute;
+        left: 50%;
+        top: 1.5rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        transform: translateX(-50%) scale(0);
+        box-shadow: 0 0 12px rgba(57, 255, 20, 0.6);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 2;
+      }
+      .timeline-dot.is-visible {
+        transform: translateX(-50%) scale(1);
+      }
+
+      /* CTA section */
+      .cta-image-panel {
+        position: absolute; inset: 0;
+        background: linear-gradient(100deg, rgba(8,10,8,0.86) 12%, rgba(8,10,8,0.68) 54%, rgba(8,10,8,0.86) 100%),
+                    radial-gradient(circle at 78% 38%, rgba(57,255,20,0.12), transparent 24%),
+                    url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
+        filter: saturate(0.58) brightness(0.62);
+      }
+
+      .contact-card { position: relative; overflow: hidden; }
+
+      /* Footer */
+      .footer-contact-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-secondary); }
+      .footer-contact-value { margin-top: 4px; color: #ffffff; font-size: 0.95rem; }
+      .footer-contact-link { color: #ffffff; text-decoration: none; transition: color 0.2s ease; }
+      .footer-contact-link:hover { color: var(--accent); text-decoration: underline; }
+      .footer-legal-link { color: var(--text-secondary); transition: color 0.24s ease; }
+      .footer-legal-link:hover { color: var(--accent); }
+
+      .footer-social-link {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 42px; height: 42px; border: 1px solid #1a3a1a;
+        border-radius: 9999px; background: #111;
+        transition: border-color 0.2s ease, transform 0.2s ease;
+      }
+      .footer-social-link svg { width: 18px; height: 18px; fill: #aaaaaa; transition: fill 0.2s ease; }
+      .footer-social-link:hover { border-color: #00ff88; transform: translateY(-1px); }
+      .footer-social-link:hover svg { fill: #00ff88; }
+
+      .whatsapp-fab {
+        position: fixed; bottom: 28px; right: 8px; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+        width: 56px; height: 56px; border: none; border-radius: 50%;
+        background: #25d366; box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+        transition: all 0.25s ease;
+      }
+      .whatsapp-fab:hover { transform: scale(1.1); }
+
+      /* Team avatar placeholder */
+      .avatar-ring {
+        width: 80px; height: 80px; border-radius: 9999px;
+        border: 2px solid var(--border-strong);
+        background: linear-gradient(135deg, rgba(57,255,20,0.18), rgba(57,255,20,0.04));
+        overflow: hidden;
+        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-family: "Poppins", sans-serif; font-weight: 800; font-style: italic;
+        font-size: 1.5rem; color: var(--accent);
+        box-shadow: 0 0 30px rgba(57,255,20,0.15);
+      }
+      .avatar-ring img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+        border-radius: inherit;
+      }
+
+      /* Skill bar */
+      .skill-bar-bg { height: 6px; border-radius: 9999px; background: rgba(255,255,255,0.05); }
+      .skill-bar-fill { height: 100%; border-radius: 9999px; background: var(--accent); transition: width 1.2s cubic-bezier(0.22,1,0.36,1); }
+
+      /* Orbital decorative */
+      .orbital-line {
+        position: absolute; border: 1px solid rgba(57,255,20,0.12);
+        border-radius: 9999px;
+      }
+
+      /* Pulse */
+      @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 14px rgba(57,255,20,0.7); }
+        50% { box-shadow: 0 0 28px rgba(57,255,20,1); }
+      }
+      .pulse-dot { animation: pulse-glow 2s ease-in-out infinite; }
+    
+      /* Shared layout components */
+      .site-shell { width: min(1380px, calc(100% - 1.5rem)); margin: 0 auto; }
+      @media (min-width: 1024px) { .site-shell { width: min(1380px, calc(100% - 4rem)); } }
+      .display-font { font-family: "Poppins", sans-serif; }
+      .mono-font { font-family: "JetBrains Mono", monospace; }
+      .brand-logo { display: block; width: auto; height: 100%; object-fit: contain; }
+      .brand-logo-link { display: inline-flex; align-items: center; flex-shrink: 0; }
+      .brand-logo-nav { height: 68px; }
+      .brand-logo-footer { height: 72px; max-width: min(100%, 240px); }
+      .brand-logo-inline { height: 26px; }
+      .footer-social-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+      .nav-scrolled { background: rgba(8,10,8,0.86); border-bottom: 1px solid var(--border); backdrop-filter: blur(22px); }
+      .nav-link { color: var(--text-secondary); transition: color 0.24s ease; }
+      .nav-link:hover { color: var(--text-primary); }
+      .nav-dropdown-wrap { position: relative; }
+      .nav-dropdown-wrap:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+      .nav-dropdown { position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(-8px); min-width: 220px; background: rgba(10,13,10,0.98); border: 1px solid var(--border); border-radius: 20px; padding: 10px; opacity: 0; visibility: hidden; transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s; backdrop-filter: blur(22px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 100; }
+      .nav-dropdown a { display: block; padding: 9px 14px; border-radius: 12px; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; transition: color 0.2s ease, background 0.2s ease; text-decoration: none; }
+      .nav-dropdown a:hover { color: var(--accent); background: rgba(57,255,20,0.06); }
+      .nav-dropdown-btn { display: flex; align-items: center; gap: 5px; color: var(--text-secondary); transition: color 0.24s ease; font-size: 1rem; font-weight: 500; background: none; border: none; cursor: pointer; font-family: inherit; padding: 0; }
+      .nav-dropdown-wrap:hover .nav-dropdown-btn { color: var(--text-primary); }
+      .nav-dropdown-btn svg { transition: transform 0.22s ease; }
+      .nav-dropdown-wrap:hover .nav-dropdown-btn svg { transform: rotate(180deg); }
+      .mob-dropdown { display: none; flex-direction: column; gap: 4px; padding: 8px 0; }
+      .mob-dropdown.open { display: flex; }
+      .mob-dropdown a { display: block; padding: 10px 18px; border-radius: 12px; color: var(--text-secondary); font-size: 1rem; font-weight: 500; transition: color 0.2s ease, background 0.2s ease; text-decoration: none; }
+      .mob-dropdown a:hover { color: var(--accent); background: rgba(57,255,20,0.06); }
+      .footer-link { color: var(--text-secondary); transition: color 0.24s ease; }
+      .footer-link:hover { color: var(--text-primary); }
+      .footer-contact-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-secondary); }
+      .footer-contact-value { margin-top: 4px; color: #fff; font-size: 0.95rem; }
+      .footer-contact-link { color: #fff; text-decoration: none; transition: color 0.2s ease; }
+      .footer-contact-link:hover { color: var(--accent); }
+      .footer-social-link { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border: 1px solid #1a3a1a; border-radius: 9999px; background: #111; transition: border-color 0.2s ease, transform 0.2s ease; }
+      .footer-social-link svg { width: 18px; height: 18px; fill: #aaa; transition: fill 0.2s ease; }
+      .footer-social-link:hover { border-color: #00ff88; transform: translateY(-1px); }
+      .footer-social-link:hover svg { fill: #00ff88; }
+      .footer-legal-link { color: var(--text-secondary); transition: color 0.24s ease; }
+      .footer-legal-link:hover { color: var(--accent); }
+      .whatsapp-fab { position: fixed; bottom: 28px; right: 8px; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border: none; border-radius: 50%; background: #25d366; box-shadow: 0 4px 20px rgba(37,211,102,0.45); transition: all 0.25s ease; text-decoration: none; }
+      .whatsapp-fab:hover { transform: scale(1.1); }
+
+    </style>
+  </head>
+  <body>
+    <!-- Noise overlay -->
+    <div class="noise-overlay"></div>
+
+    <!-- Custom cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ====== NAVBAR ====== -->
+    <div id="navbar-root"></div>
+
+    <main>
+
+      <!-- ====== HERO SECTION ====== -->
+      <section class="section-frame relative min-h-[70vh] overflow-hidden pt-16 flex items-center">
+        <div class="about-hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-spotlight" style="width:36rem;height:36rem;top:-8rem;right:-6rem;background:radial-gradient(circle,rgba(57,255,20,0.18),transparent 66%);"></div>
+        <div class="hero-spotlight" style="width:24rem;height:24rem;bottom:0;left:-6rem;background:radial-gradient(circle,rgba(57,255,20,0.1),transparent 68%);"></div>
+
+        <div class="site-shell relative z-10 py-16 lg:py-24">
+          <div class="lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
+          <div class="">
+            <div class="glass-panel inline-flex items-center gap-3 rounded-full px-4 py-2 reveal">
+              <span class="h-2 w-2 rounded-full bg-[var(--accent)] pulse-dot"></span>
+              <span class="eyebrow">About Auroveon</span>
+            </div>
+
+            <h1 class="headline-italics mt-6 text-[clamp(2.8rem,7vw,6.2rem)] reveal reveal-d1">
+              <span class="shine-text">We Build.</span><br/>
+              <span class="shine-text">We Design.</span><br/>
+              <span class="shine-text-accent">We Dream.</span>
+            </h1>
+
+            <p class="mt-7 max-w-2xl text-lg leading-8 text-[var(--text-secondary)] reveal reveal-d2">
+              Auroveon is a Karachi-born software agency on a mission to craft AI-powered, premium digital experiences for brands that refuse to be ordinary. We are three founders — and we build like we mean it.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-4 reveal reveal-d3">
+              <a href="contact.html"
+                class="display-font inline-flex items-center justify-center rounded-full px-7 py-4 text-base font-bold text-[#081008] hover:-translate-y-1 transition-transform"
+                style="background:var(--accent);box-shadow:0 0 42px rgba(57,255,20,0.18),0 22px 60px rgba(57,255,20,0.12);">
+                Start a Project
+              </a>
+              <a href="#team"
+                class="display-font inline-flex items-center justify-center rounded-full border px-7 py-4 text-base font-bold hover:-translate-y-1 transition-transform"
+                style="border-color:var(--border-strong);color:var(--text-primary);background:rgba(255,255,255,0.02);">
+                Meet The Team
+              </a>
+            </div>
+          </div>
+          <div class="about-orbit hidden lg:flex items-center justify-center absolute" style="width:420px;height:420px;right:0rem;top:50%;transform:translateY(-60%);">
+            <svg class="absolute inset-0 w-full h-full" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse class="orbit-ring ring-1" cx="240" cy="240" rx="180" ry="70" stroke="#39ff14" stroke-width="1" stroke-opacity="0.48"/>
+              <ellipse class="orbit-ring ring-2" cx="240" cy="240" rx="145" ry="55" stroke="#39ff14" stroke-width="1" stroke-opacity="0.34"/>
+              <ellipse class="orbit-ring ring-3" cx="240" cy="240" rx="110" ry="42" stroke="#39ff14" stroke-width="0.95" stroke-opacity="0.24"/>
+            </svg>
+
+            <div class="orbit-dot-wrap ring-1-anim" style="width:360px;height:140px;position:absolute;">
+              <span class="orbit-dot"></span>
+            </div>
+            <div class="orbit-dot-wrap ring-2-anim" style="width:290px;height:110px;position:absolute;">
+              <span class="orbit-dot" style="opacity:0.6"></span>
+            </div>
+            <div class="orbit-dot-wrap ring-3-anim" style="width:220px;height:84px;position:absolute;">
+              <span class="orbit-dot" style="opacity:0.4"></span>
+            </div>
+
+            <div class="orbit-pill" style="top:18%;left:2%;">
+              <span class="orbit-pill-label">Founded</span>
+              <span class="orbit-pill-value">2026</span>
+            </div>
+            <div class="orbit-pill" style="top:14%;right:4%;">
+              <span class="orbit-pill-label">Team</span>
+              <span class="orbit-pill-value">3 Founders</span>
+            </div>
+            <div class="orbit-pill" style="bottom:18%;left:4%;">
+              <span class="orbit-pill-label">Based In</span>
+              <span class="orbit-pill-value">Karachi, PK</span>
+            </div>
+            <div class="orbit-pill" style="bottom:14%;right:2%;">
+              <span class="orbit-pill-label">Approach</span>
+              <span class="orbit-pill-value">AI Native</span>
+            </div>
+
+            <div class="orbit-logo-wrap">
+              <img src="./assets/WhatsApp Image 2026-05-09 at 09,19,43-Picsart-BackgroundRemover.png" alt="Auroveon" class="orbit-logo" />
+              <div class="orbit-logo-glow"></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== MARQUEE STRIP ====== -->
+      <section class="section-frame relative overflow-hidden py-6">
+        <div class="site-shell">
+          <div class="glass-panel marquee rounded-full border border-[var(--border)] px-2 py-2">
+            <div class="marquee-track">
+              <!-- doubled for seamless loop -->
+              <script>
+                const items = ["AI-Native Agency","Founded 2025","Karachi, Pakistan","Premium Builds","3 Founders","120+ Projects","98% Retention","Automation Led","UI/UX Obsessed","Scalable by Default","Enterprise Grade","AI-Native Agency","Founded 2026","Karachi, Pakistan","Premium Builds","3 Founders","60+ Projects","98% Retention","OpenAI-Ready","Automation Led","UI/UX Obsessed","Scalable by Default","Enterprise Grade"];
+                document.write(items.map(item => `<div class="mono-font flex items-center whitespace-nowrap px-6 py-3 text-[0.78rem] uppercase tracking-[0.18em] text-[var(--text-secondary)]"><span>${item}</span><span class="mx-6 text-[var(--accent)]">.</span></div>`).join(''));
+              </script>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== MISSION & VISION ====== -->
+      <section class="section-frame relative py-24 lg:py-32">
+        <div class="site-shell">
+          <div class="grid gap-8 lg:grid-cols-2 lg:items-stretch">
+
+            <!-- Mission -->
+            <div class="value-card glass-panel rounded-[34px] border border-[var(--border)] p-8 lg:p-10 flex flex-col h-full">
+              <div class="mono-font text-[0.72rem] uppercase tracking-[0.18em] text-[var(--accent)] mb-5">Our Mission</div>
+              <div class="w-14 h-14 rounded-2xl border border-[var(--border-strong)] flex items-center justify-center mb-7"
+                style="background:rgba(57,255,20,0.06);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                </svg>
+              </div>
+              <h2 class="display-font text-2xl lg:text-3xl font-extrabold italic leading-tight text-[var(--text-primary)]">
+                Build software that feels alive. Not just functional.
+              </h2>
+              <p class="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
+                We believe great software should feel like it was made with care. Every product we build is designed to look sharp, work fast, and leave an impression.
+              </p>
+              <div class="mt-auto pt-8 h-px w-full soft-divider"></div>
+              <div class="mt-5 flex items-center gap-3">
+                <span class="h-2 w-2 rounded-full bg-[var(--accent)] pulse-dot"></span>
+                <span class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--text-muted)]">Active & shipping</span>
+              </div>
+            </div>
+
+            <!-- Vision -->
+            <div class="value-card glass-panel rounded-[34px] border border-[var(--border)] p-8 lg:p-10 flex flex-col h-full">
+              <div class="mono-font text-[0.72rem] uppercase tracking-[0.18em] text-[var(--accent)] mb-5">Our Vision</div>
+              <div class="w-14 h-14 rounded-2xl border border-[var(--border-strong)] flex items-center justify-center mb-7"
+                style="background:rgba(57,255,20,0.06);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </div>
+              <h2 class="display-font text-2xl lg:text-3xl font-extrabold italic leading-tight text-[var(--text-primary)]">
+                To become the most trusted AI native agency in South Asia.
+              </h2>
+              <p class="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
+                We want ambitious brands from Karachi to the Gulf to have access to world-class AI tools and premium digital products without compromise. That's the future we're building toward.
+              </p>
+              <div class="mt-auto pt-8 h-px w-full soft-divider"></div>
+              <div class="mt-5 flex items-center gap-3">
+                <span class="h-2 w-2 rounded-full bg-[var(--accent)] pulse-dot"></span>
+                <span class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--text-muted)]">Long-term vision</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== STATS SECTION ====== -->
+      <section class="section-frame relative py-16">
+        <div class="site-shell">
+          <div class="glass-panel rounded-[34px] border border-[var(--border)] p-8 lg:p-12">
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              <div class="stat-card text-center px-4 py-2">
+                <div class="display-font text-5xl lg:text-6xl font-extrabold italic" style="color:var(--accent)">3</div>
+                <div class="mt-3 text-sm leading-6 text-[var(--text-secondary)]">Co-Founders united by one mission</div>
+              </div>
+              <div class="stat-card text-center px-4 py-2">
+                <div class="display-font text-5xl lg:text-6xl font-extrabold italic text-[var(--text-primary)]">60+</div>
+                <div class="mt-3 text-sm leading-6 text-[var(--text-secondary)]">Digital products shipped globally</div>
+              </div>
+              <div class="stat-card text-center px-4 py-2">
+                <div class="display-font text-5xl lg:text-6xl font-extrabold italic text-[var(--text-primary)]">98%</div>
+                <div class="mt-3 text-sm leading-6 text-[var(--text-secondary)]">Client retention from repeat partnerships</div>
+              </div>
+              <div class="stat-card text-center px-4 py-2">
+                <div class="display-font text-5xl lg:text-6xl font-extrabold italic text-[var(--text-primary)]">3x</div>
+                <div class="mt-3 text-sm leading-6 text-[var(--text-secondary)]">Average speed-up in product clarity after redesign</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== OUR STORY / TIMELINE ====== -->
+      <section class="section-frame relative py-24 lg:py-32" id="story">
+        <div class="site-shell">
+          <div class="grid gap-12 lg:grid-cols-[0.6fr_1.4fr] lg:items-start">
+
+            <div class="lg:sticky lg:top-28">
+              <div class="section-kicker">Our journey</div>
+              <h2 class="display-font mt-4 text-4xl lg:text-6xl font-extrabold italic leading-[0.96] tracking-[-0.04em] text-[var(--text-primary)]">
+                From an idea to a movement.
+              </h2>
+              <p class="mt-6 text-base lg:text-lg leading-8 text-[var(--text-secondary)] max-w-sm">
+                Auroveon did not start in a boardroom. It started with three friends who believed Pakistani software could compete at the global stage — and prove it.
+              </p>
+              <div class="mt-8 glass-panel rounded-[24px] border border-[var(--border)] px-5 py-5">
+                <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)]">Headquarters</div>
+                <div class="mt-2 display-font text-xl font-bold italic text-[var(--text-primary)]">Karachi, Pakistan</div>
+                <div class="mt-1 text-sm text-[var(--text-secondary)]">Building for the world</div>
+              </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative pl-10 md:pl-0">
+              <div class="timeline-line-track hidden md:block"></div>
+              <div id="timeline-progress" class="hidden md:block"></div>
+
+             <!-- Item 1 -->
+<div class="relative mb-12 md:grid md:grid-cols-2 md:gap-10">
+  <div class="timeline-dot hidden md:block"></div>
+  <div class="md:text-right md:pr-10 pt-1">
+    <div class="mono-font text-[0.72rem] uppercase tracking-[0.18em] text-[var(--accent)]">2026 — Q1</div>
+    <h3 class="display-font mt-3 text-2xl font-bold italic text-[var(--text-primary)]">The Spark</h3>
+  </div>
+  <div class="milestone-card glass-panel rounded-[24px] border border-[var(--border)] p-6 md:ml-10 mt-4 md:mt-0">
+    <p class="text-sm leading-7 text-[var(--text-secondary)]">
+      Three friends, tired of seeing Pakistani software treated as cheap output, decided to build something they could be proud of. The name Auroveon was born. Auro for gold standard quality. Veon for vision and velocity.
+    </p>
+  </div>
+</div>
+
+<!-- Item 2 -->
+<div class="relative mb-12 md:grid md:grid-cols-2 md:gap-10">
+  <div class="timeline-dot hidden md:block"></div>
+  <div class="md:text-right md:pr-10 pt-1">
+    <div class="mono-font text-[0.72rem] uppercase tracking-[0.18em] text-[var(--accent)]">2026 — Q2</div>
+    <h3 class="display-font mt-3 text-2xl font-bold italic text-[var(--text-primary)]">Official Launch</h3>
+  </div>
+  <div class="milestone-card glass-panel rounded-[24px] border border-[var(--border)] p-6 md:ml-10 mt-4 md:mt-0">
+    <p class="text-sm leading-7 text-[var(--text-secondary)]">
+      Auroveon was officially registered. The website went live. Our first clients came on board and within weeks we were already shipping. No slow start. No waiting around.
+    </p>
+  </div>
+</div>
+
+<!-- Item 3 -->
+<div class="relative mb-12 md:grid md:grid-cols-2 md:gap-10">
+  <div class="timeline-dot hidden md:block"></div>
+  <div class="md:text-right md:pr-10 pt-1">
+    <div class="mono-font text-[0.72rem] uppercase tracking-[0.18em] text-[var(--accent)]">2026 — Q2</div>
+    <h3 class="display-font mt-3 text-2xl font-bold italic text-[var(--text-primary)]">First Projects Shipped</h3>
+  </div>
+  <div class="milestone-card glass-panel rounded-[24px] border border-[var(--border)] p-6 md:ml-10 mt-4 md:mt-0">
+    <p class="text-sm leading-7 text-[var(--text-secondary)]">
+      Early projects went out the door and clients noticed the difference. Word spread. Our AI first approach started getting attention from startups and founders who wanted more than just a dev shop.
+    </p>
+  </div>
+</div>
+
+<!-- Item 4 -->
+<div class="relative md:grid md:grid-cols-2 md:gap-10">
+  <div class="timeline-dot hidden md:block"></div>
+  <div class="md:text-right md:pr-10 pt-1">
+    <div class="mono-font text-[0.72rem] uppercase tracking-[0.18em] text-[var(--accent)]">2026 — Now</div>
+    <h3 class="display-font mt-3 text-2xl font-bold italic text-[var(--text-primary)]">Just Getting Started</h3>
+  </div>
+  <div class="milestone-card glass-panel rounded-[24px] border border-[var(--border)] p-6 md:ml-10 mt-4 md:mt-0">
+    <p class="text-sm leading-7 text-[var(--text-secondary)]">
+      We are early and we know it. But the foundation is solid, the team is sharp, and the work speaks for itself. Auroveon is actively taking on new projects and growing fast.
+    </p>
+    <div class="mt-4 flex items-center gap-2">
+      <span class="h-2 w-2 rounded-full bg-[var(--accent)] pulse-dot"></span>
+      <span class="mono-font text-xs uppercase tracking-[0.14em] text-[var(--accent)]">Live & Shipping</span>
+    </div>
+  </div>
+</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== CORE VALUES ====== -->
+      <section class="section-frame relative py-24 lg:py-32">
+        <div class="site-shell">
+          <div class="text-center mb-14">
+            <div class="section-kicker">What we stand for</div>
+            <h2 class="display-font mt-4 text-4xl lg:text-6xl font-extrabold italic leading-[0.96] tracking-[-0.04em] text-[var(--text-primary)] max-w-[10ch] mx-auto">
+              Values that shape every decision.
+            </h2>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+            <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-7">
+              <div class="w-12 h-12 rounded-xl border border-[var(--border-strong)] flex items-center justify-center mb-6" style="background:rgba(57,255,20,0.06);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">01</div>
+              <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Quality First</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--text-secondary)]">We never ship mediocre work. Every pixel, every line of code, and every interaction is crafted with precision. Good enough is never good enough for Auroveon.</p>
+            </div>
+
+            <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-7">
+              <div class="w-12 h-12 rounded-xl border border-[var(--border-strong)] flex items-center justify-center mb-6" style="background:rgba(57,255,20,0.06);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">02</div>
+              <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Speed with Depth</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--text-secondary)]">We move fast without cutting corners. Our streamlined process ensures quick delivery while maintaining the depth and quality our clients expect from a premium agency.</p>
+            </div>
+
+            <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-7">
+              <div class="w-12 h-12 rounded-xl border border-[var(--border-strong)] flex items-center justify-center mb-6" style="background:rgba(57,255,20,0.06);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">03</div>
+              <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Client Partnership</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--text-secondary)]">We do not treat clients as contracts. We treat them as long-term partners. Their growth is our growth. Their success stories are what we build our reputation on.</p>
+            </div>
+
+            <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-7">
+              <div class="w-12 h-12 rounded-xl border border-[var(--border-strong)] flex items-center justify-center mb-6" style="background:rgba(57,255,20,0.06);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">04</div>
+              <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">AI-First Thinking</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--text-secondary)]">Every solution we design starts with the question: how can AI make this smarter, faster, and more valuable? We do not bolt AI on — we build around it from day one.</p>
+            </div>
+
+            <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-7">
+              <div class="w-12 h-12 rounded-xl border border-[var(--border-strong)] flex items-center justify-center mb-6" style="background:rgba(57,255,20,0.06);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+              <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">05</div>
+              <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Scalable by Design</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--text-secondary)]">We architect for the future, not just the present. The products we build are designed to scale gracefully — whether handling 100 users or 100,000 without breaking a sweat.</p>
+            </div>
+
+            <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-7">
+              <div class="w-12 h-12 rounded-xl border border-[var(--border-strong)] flex items-center justify-center mb-6" style="background:rgba(57,255,20,0.06);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">06</div>
+              <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Global Standard</h3>
+              <p class="mt-4 text-sm leading-7 text-[var(--text-secondary)]">We are based in Karachi but we benchmark against the world's best. Our work competes with top agencies from London, New York, and Dubai — and wins on quality and value.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== TEAM SECTION ====== -->
+      <section class="section-frame relative py-24 lg:py-32" id="team">
+        <div class="site-shell">
+          <div class="text-center mb-14">
+            <div class="section-kicker">The minds behind Auroveon</div>
+            <h2 class="display-font mt-4 text-4xl lg:text-6xl font-extrabold italic leading-[0.96] tracking-[-0.04em] text-[var(--text-primary)] max-w-[12ch] mx-auto">
+              Small team. Massive impact.
+            </h2>
+            <p class="mt-5 text-base lg:text-lg leading-8 text-[var(--text-secondary)] max-w-2xl mx-auto">
+              We are a tight-knit team of three co-founders who wear many hats — and wear them well. Every project gets the full force of our combined expertise.
+            </p>
+          </div>
+
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+            <!-- Co-Founder 1 -->
+            <div class="team-card glass-panel rounded-[32px] border border-[var(--border)] p-7 lg:p-8 flex flex-col h-full">
+              <div class="flex items-start gap-5 mb-7">
+                <div class="avatar-ring flex-shrink-0"><img src="./assets/member3.png" alt="Member image"></img></div>
+                <div>
+                  <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-2">Co-Founder</div>
+                  <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Muhammad Qasim</h3>
+                  <p class="text-sm text-[var(--text-secondary)] mt-1">Software Engineer</p>
+                </div>
+              </div>
+             <p class="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
+  A software engineering graduate who leads client relationships and project direction at Auroveon. Brings both technical depth and business thinking to every engagement.
+</p>
+<div class="mt-6 flex flex-wrap gap-2">
+  <span class="skill-tag">Full-Stack Dev</span>
+  <span class="skill-tag">Client Strategy</span>
+  <span class="skill-tag">Web Platforms</span>
+  <span class="skill-tag">Project Direction</span>
+  <span class="skill-tag">AI & Automation</span>
+</div>
+              <div class="mt-auto pt-7">
+                <div class="h-px w-full soft-divider"></div>
+                <div class="mt-5 flex items-center justify-between">
+                  <div class="flex gap-3">
+                    <a href="https://www.linkedin.com/in/muhammad-qasim-44a9132b4/" target="_blank" class="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-colors">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.67H9.32V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.37 4.28 5.46v6.28ZM5.31 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.09 20.45H3.52V9h3.57v11.45Z"/></svg>
+                    </a>
+                  </div>
+                  <span class="glass-panel rounded-full px-4 py-1.5 mono-font text-xs text-[var(--accent)] border border-[var(--border)]">Pakistan</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Co-Founder 2 -->
+            <div class="team-card glass-panel rounded-[32px] border border-[var(--border)] p-7 lg:p-8 flex flex-col h-full">
+              <div class="flex items-start gap-5 mb-7">
+                <div class="avatar-ring flex-shrink-0"><img src="./assets/member1.jpeg" alt="Member image"></img></div>
+                <div>
+                  <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-2">Co-Founder</div>
+                  <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Zaid Ali Khan</h3>
+                  <p class="text-sm text-[var(--text-secondary)] mt-1">Software Engineer</p>
+                </div>
+              </div>
+             <p class="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
+  Currently in his 4th semester and already working professionally as a full-stack developer. Handles everything from Python backends to ASP.NET systems and AI integrations across Auroveon projects.
+</p>
+<div class="mt-6 flex flex-wrap gap-2">
+  <span class="skill-tag">Python</span>
+  <span class="skill-tag">ASP.NET</span>
+  <span class="skill-tag">AI Integration</span>
+  <span class="skill-tag">Full-Stack Dev</span>
+</div>
+              <div class="mt-auto pt-7">
+                <div class="h-px w-full soft-divider"></div>
+                <div class="mt-5 flex items-center justify-between">
+                  <div class="flex gap-3">
+                    <a href="https://www.linkedin.com/in/zaid-ali-khan-22ba70299/" target="_blank" class="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-colors">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.67H9.32V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.37 4.28 5.46v6.28ZM5.31 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.09 20.45H3.52V9h3.57v11.45Z"/></svg>
+                    </a>
+                  </div>
+                  <span class="glass-panel rounded-full px-4 py-1.5 mono-font text-xs text-[var(--accent)] border border-[var(--border)]">Pakistan</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Co-Founder 3 -->
+            <div class="team-card glass-panel rounded-[32px] border border-[var(--border)] p-7 lg:p-8 flex flex-col h-full">
+              <div class="flex items-start gap-5 mb-7">
+                <div class="avatar-ring flex-shrink-0"><img src="./assets/member2.jpeg" alt="Member image"></img></div>
+                <div>
+                  <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-2">Co-Founder</div>
+                  <h3 class="display-font text-2xl font-bold italic text-[var(--text-primary)]">Hamza</h3>
+                  <p class="text-sm text-[var(--text-secondary)] mt-1">Software Engineer</p>
+                </div>
+              </div>
+             <p class="mt-5 text-sm leading-7 text-[var(--text-secondary)]">
+  3rd semester student already working full-time as a developer. Bridges the gap between clean code and sharp design — making sure Auroveon products work well and look exceptional.
+</p>
+<div class="mt-6 flex flex-wrap gap-2">
+  <span class="skill-tag">Full-Stack Dev</span>
+  <span class="skill-tag">UI/UX Design</span>
+  <span class="skill-tag">Brand Identity</span>
+  <span class="skill-tag">Motion & 3D</span>
+</div>
+              <div class="mt-auto pt-7">
+                <div class="h-px w-full soft-divider"></div>
+                <div class="mt-5 flex items-center justify-between">
+                  <div class="flex gap-3">
+                    <a href="https://www.linkedin.com/in/hafiz-hamza-009642289?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center hover:border-[var(--accent)] transition-colors">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--text-secondary)"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.67H9.32V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.37 4.28 5.46v6.28ZM5.31 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.09 20.45H3.52V9h3.57v11.45Z"/></svg>
+                    </a>
+                  </div>
+                  <span class="glass-panel rounded-full px-4 py-1.5 mono-font text-xs text-[var(--accent)] border border-[var(--border)]">Pakistan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====== WHY AUROVEON ====== -->
+      <section class="section-frame relative py-24 lg:py-32">
+        <div class="site-shell">
+          <div class="grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:items-center">
+            <div>
+              <div class="section-kicker">Why choose us</div>
+              <h2 class="display-font mt-4 text-4xl lg:text-6xl font-extrabold italic leading-[0.96] tracking-[-0.04em] text-[var(--text-primary)]">
+                The Auroveon difference.
+              </h2>
+              <p class="mt-6 text-base lg:text-lg leading-8 text-[var(--text-secondary)] max-w-sm">
+                There are hundreds of agencies. There is only one Auroveon. Here is what makes us worth choosing.
+              </p>
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-6">
+                <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">01</div>
+                <h3 class="display-font text-xl font-bold italic text-[var(--text-primary)]">AI at the Core</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--text-secondary)]">We do not add AI as an afterthought. It drives architecture, design, and delivery from day one.</p>
+              </div>
+              <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-6">
+                <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">02</div>
+                <h3 class="display-font text-xl font-bold italic text-[var(--text-primary)]">Senior-Level Work</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--text-secondary)]">No juniors, no outsourcing. Every project is handled directly by our co-founding team.</p>
+              </div>
+              <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-6">
+                <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">03</div>
+                <h3 class="display-font text-xl font-bold italic text-[var(--text-primary)]">Transparent Process</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--text-secondary)]">Clear timelines, honest communication, and regular updates. No surprises, no black boxes.</p>
+              </div>
+              <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-6">
+                <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">04</div>
+                <h3 class="display-font text-xl font-bold italic text-[var(--text-primary)]">Global Quality, Local Rates</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--text-secondary)]">World-class output without the London or NYC price tag. Premium work at a price that makes sense.</p>
+              </div>
+              <div class="value-card glass-panel rounded-[28px] border border-[var(--border)] p-6 sm:col-span-2">
+                <div class="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">05</div>
+                <h3 class="display-font text-xl font-bold italic text-[var(--text-primary)]">We Think Like Founders</h3>
+                <p class="mt-3 text-sm leading-7 text-[var(--text-secondary)]">Because we are founders. We understand pressure, timelines, and the weight of every decision. We treat your project like it is our own business — because your success is our reputation.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== CTA SECTION (SAME AS HOME) ====== -->
+      <section id="contact" class="relative py-24 lg:py-32">
+        <div class="site-shell">
+          <div class="contact-card glass-panel relative overflow-hidden rounded-[38px] border border-[var(--border)] px-6 py-12 lg:px-12 lg:py-14">
+            <div class="cta-image-panel"></div>
+            <div class="hero-spotlight" style="width:30rem;height:30rem;top:-12rem;right:-8rem;background:radial-gradient(circle,rgba(57,255,20,0.14),transparent 64%);"></div>
+            <div class="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div>
+                <div class="section-kicker">Let's build the standout version</div>
+                <h2 class="display-font mt-4 max-w-[11ch] text-4xl font-extrabold italic leading-[0.94] tracking-[-0.04em] text-[var(--text-primary)] lg:text-6xl">
+                  Luxury tech presence. Real product thinking.
+                </h2>
+                <p class="mt-6 max-w-2xl text-base leading-8 text-[var(--text-secondary)] lg:text-lg">
+                  If you want the homepage to feel like an experience instead of a template, we can shape the brand, the product story, and the engineering system together.
+                </p>
+              </div>
+              <div class="flex flex-col gap-4 sm:flex-row lg:flex-col">
+                <a href="contact.html"
+                  class="display-font inline-flex items-center justify-center rounded-full px-7 py-4 text-base font-bold text-[#081008] hover:-translate-y-1 transition-transform"
+                  style="background:var(--accent);box-shadow:0 0 42px rgba(57,255,20,0.18),0 22px 60px rgba(57,255,20,0.12);">
+                  Start a Project
+                </a>
+                <a href="index.html"
+                  class="display-font inline-flex items-center justify-center rounded-full border px-7 py-4 text-base font-bold text-[var(--text-primary)] hover:-translate-y-1 transition-transform"
+                  style="border-color:var(--border-strong);">
+                  Back to Home
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ====== FOOTER (SAME AS HOME) ====== -->
+    <div id="footer-root"></div>
+    <div id="whatsapp-fab-root"></div>
+
+    <script type="text/babel">
+      const navbarRoot = document.getElementById("navbar-root");
+      if (navbarRoot) ReactDOM.createRoot(navbarRoot).render(<Navbar />);
+      const footerRoot = document.getElementById("footer-root");
+      if (footerRoot) ReactDOM.createRoot(footerRoot).render(<Footer />);
+      const whatsappFabRoot = document.getElementById("whatsapp-fab-root");
+      if (whatsappFabRoot) ReactDOM.createRoot(whatsappFabRoot).render(<WhatsAppFAB />);
+    </script>
+
+    <script>
+      (function () {
+        const section = document.getElementById("story");
+        const progress = document.getElementById("timeline-progress");
+        const cards = document.querySelectorAll(".milestone-card");
+        const dots = document.querySelectorAll(".timeline-dot");
+
+        if (!section || !progress) return;
+
+        cards.forEach((card, i) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(32px)";
+          card.style.transition = `opacity 0.7s ease ${i * 0.15}s, transform 0.7s ease ${i * 0.15}s`;
+        });
+
+        dots.forEach((dot) => {
+          dot.style.transform = "translateX(-50%) scale(0)";
+          dot.style.transition =
+            "transform 0.5s cubic-bezier(0.34,1.56,0.64,1)";
+        });
+
+        function updateLine() {
+          const rect = section.getBoundingClientRect();
+          const total = section.offsetHeight;
+          const seen = Math.min(
+            Math.max(-rect.top + window.innerHeight * 0.65, 0),
+            total,
+          );
+          progress.style.height = `${(seen / total) * 100}%`;
+        }
+
+        const cardObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const el = entry.target;
+                el.style.opacity = "1";
+                el.style.transform = el.classList.contains("timeline-dot")
+                  ? "translateX(-50%) scale(1)"
+                  : "translateY(0)";
+                cardObserver.unobserve(el);
+              }
+            });
+          },
+          {
+            threshold: 0.2,
+            rootMargin: "0px 0px -100px 0px",
+          },
+        );
+
+        cards.forEach((card) => cardObserver.observe(card));
+        dots.forEach((dot) => cardObserver.observe(dot));
+
+        window.addEventListener("scroll", updateLine, { passive: true });
+        updateLine();
+      })();
+    </script>
+
+
+    <script>
+
+
+      // ---- Custom cursor ----
+      if (window.innerWidth >= 1024) {
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        dot.style.opacity = 1;
+        ring.style.opacity = 1;
+        let rx = 0, ry = 0;
+        window.addEventListener('mousemove', e => {
+          dot.style.left = e.clientX + 'px';
+          dot.style.top = e.clientY + 'px';
+          rx += (e.clientX - rx) * 0.12;
+          ry += (e.clientY - ry) * 0.12;
+          ring.style.left = rx + 'px';
+          ring.style.top = ry + 'px';
+        });
+        const hoverables = document.querySelectorAll('a, button, [data-hover]');
+        hoverables.forEach(el => {
+          el.addEventListener('mouseenter', () => ring.classList.add('is-hovering'));
+          el.addEventListener('mouseleave', () => ring.classList.remove('is-hovering'));
+        });
+        // Smooth ring follow
+        function animRing() {
+          requestAnimationFrame(animRing);
+        }
+        animRing();
+      }
+
+      // ---- Intersection Observer for scroll reveals ----
+      const revealEls = document.querySelectorAll('.value-card, .team-card, .stat-card');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      revealEls.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(40px)';
+        el.style.transition = 'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)';
+        obs.observe(el);
+      });
+    </script>
+  </body>
+</html>
