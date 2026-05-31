@@ -1,11 +1,8 @@
+# Auroveon - robots.txt
+
+# Allow all search engines
 User-agent: *
 Allow: /
 
-Disallow: /admin/
-Disallow: /login/
-Disallow: /dashboard/
-Disallow: /api/
-Disallow: /cgi-bin/
-Disallow: /tmp/
-
-Sitemap: https://auroveon.com/sitemap.xml
+# Sitemap location
+Sitemap: https://www.auroveon.com/sitemap.xml
