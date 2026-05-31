@@ -114,9 +114,13 @@ function Footer() {
               <div>
                 <div className="footer-contact-label">Email</div>
                 <div className="footer-contact-value">
-                  <a className="footer-contact-link" href="mailto:info@auroveon.com">
-                    info@auroveon.com
-                  </a>
+                  <a 
+                  className="footer-contact-link" 
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=info@auroveon.com&su=Project%20Inquiry&body=Hello%20Auroveon%20Team,"
+                  target="_blank"
+                  >
+                info@auroveon.com
+                </a>
                 </div>
               </div>
               <div>
