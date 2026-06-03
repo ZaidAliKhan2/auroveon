@@ -660,6 +660,13 @@
           background-position: 200% center;
         }
       }
+      .shine-text,
+      .shine-text-accent {
+        display: inline-block;
+        padding-right: 0.15em;
+        padding-bottom: 0.06em;
+        line-height: 1.06;
+      }
       .shine-text {
         background: linear-gradient(
           90deg,
@@ -672,7 +679,6 @@
           #fff 100%
         );
         background-size: 200% auto;
-        display: inline;
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -691,7 +697,6 @@
           var(--accent) 100%
         );
         background-size: 200% auto;
-        display: inline;
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -702,8 +707,8 @@
         font-family: "Poppins", sans-serif;
         font-style: italic;
         font-weight: 800;
-        letter-spacing: -0.045em;
-        line-height: 1;
+        letter-spacing: 0;
+        line-height: 1.03;
       }
       @keyframes pulse-glow {
         0%,
@@ -1675,11 +1680,13 @@
           </div>
           <div class="map-frame">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d231962.28044015226!2d66.8666!3d24.8607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1715000000000!5m2!1sen!2s"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1810.3692632495708!2d67.07967183877267!3d24.838613978577765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33c1289bd4b71%3A0x73a72e54c9c3014d!2sDefence%20view%20Phase%202%20Defence%20View%20Housing%20Society%2C%20Karachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1780512399172!5m2!1sen!2s"
+              width="600"
+              height="450"
+              style="border: 0"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              title="Auroveon Location — Karachi, Pakistan"
             ></iframe>
           </div>
         </div>

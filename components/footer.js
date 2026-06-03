@@ -8,12 +8,21 @@ function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
           <div>
             <div>
-              <img src={logoSrc} alt="Auroveon" className="brand-logo brand-logo-footer" />
+              <img
+                src={logoSrc}
+                alt="Auroveon"
+                className="brand-logo brand-logo-footer"
+              />
             </div>
             <p className="mt-4 max-w-sm text-sm leading-7 text-[var(--text-secondary)]">
-              <span className="sm:hidden">Design, development, and automation. Delivered end to end.</span>
-              <span className="hidden sm:inline">Software agency for AI solutions, modern web platforms, SaaS systems, and cinematic digital
-              experiences built for ambitious brands.</span>
+              <span className="sm:hidden">
+                Design, development, and automation. Delivered end to end.
+              </span>
+              <span className="hidden sm:inline">
+                Software agency for AI solutions, modern web platforms, SaaS
+                systems, and cinematic digital experiences built for ambitious
+                brands.
+              </span>
             </p>
             <div className="mt-6 footer-social-row">
               <a
@@ -64,7 +73,9 @@ function Footer() {
           </div>
 
           <div>
-            <div className="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)]">Navigation</div>
+            <div className="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)]">
+              Navigation
+            </div>
             <div className="mt-5 flex flex-col gap-3 text-sm">
               <a className="footer-link" href={`${BASE}index.html`}>
                 Home
@@ -85,7 +96,9 @@ function Footer() {
           </div>
 
           <div>
-            <div className="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)]">Services</div>
+            <div className="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)]">
+              Services
+            </div>
             <div className="mt-5 flex flex-col gap-3 text-sm">
               <a className="footer-link" href={`${BASE}services/web-dev.html`}>
                 Web Development
@@ -93,34 +106,45 @@ function Footer() {
               <a className="footer-link" href={`${BASE}services/app-dev.html`}>
                 App Development
               </a>
-              <a className="footer-link" href={`${BASE}services/ai-automation.html`}>
+              <a
+                className="footer-link"
+                href={`${BASE}services/ai-automation.html`}
+              >
                 AI Automation
               </a>
               <a className="footer-link" href={`${BASE}services/seo.html`}>
                 SEO
               </a>
-              <a className="footer-link" href={`${BASE}services/digital-marketing.html`}>
+              <a
+                className="footer-link"
+                href={`${BASE}services/digital-marketing.html`}
+              >
                 Digital Marketing
               </a>
-              <a className="footer-link" href={`${BASE}services/ui-ux-design.html`}>
+              <a
+                className="footer-link"
+                href={`${BASE}services/ui-ux-design.html`}
+              >
                 UI/UX Design
               </a>
             </div>
           </div>
 
           <div>
-            <div className="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)]">Contact Us</div>
+            <div className="mono-font text-xs uppercase tracking-[0.18em] text-[var(--accent)]">
+              Contact Us
+            </div>
             <div className="mt-5 flex flex-col gap-4">
               <div>
                 <div className="footer-contact-label">Email</div>
                 <div className="footer-contact-value">
-                  <a 
-                  className="footer-contact-link" 
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=info@auroveon.com&su=Project%20Inquiry&body=Hello%20Auroveon%20Team,"
-                  target="_blank"
+                  <a
+                    className="footer-contact-link"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=info@auroveon.com&su=Project%20Inquiry&body=Hello%20Auroveon%20Team,"
+                    target="_blank"
                   >
-                info@auroveon.com
-                </a>
+                    info@auroveon.com
+                  </a>
                 </div>
               </div>
               <div>
@@ -133,7 +157,9 @@ function Footer() {
               </div>
               <div>
                 <div className="footer-contact-label">Address</div>
-                <div className="footer-contact-value">Street 4, Karachi, Pakistan</div>
+                <div className="footer-contact-value">
+                  Defence view, Karachi, Pakistan{" "}
+                </div>
               </div>
             </div>
           </div>
@@ -142,11 +168,21 @@ function Footer() {
         <div className="mt-10 flex flex-col gap-4 border-t border-[var(--border)] pt-6 text-sm text-[var(--text-secondary)] lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap items-center gap-3">
             <span>&copy; 2026</span>
-            <img src={logoSrc} alt="Auroveon" className="brand-logo brand-logo-inline" />
-            <span>Auroveon. Design, development, and automation. Delivered end to end.</span>
+            <img
+              src={logoSrc}
+              alt="Auroveon"
+              className="brand-logo brand-logo-inline"
+            />
+            <span>
+              Auroveon. Design, development, and automation. Delivered end to
+              end.
+            </span>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <a className="footer-legal-link" href={`${BASE}privacy-policy.html`}>
+            <a
+              className="footer-legal-link"
+              href={`${BASE}privacy-policy.html`}
+            >
               Privacy Policy
             </a>
             <span aria-hidden="true" className="text-[var(--text-secondary)]">
